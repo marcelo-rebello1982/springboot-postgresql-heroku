@@ -2,19 +2,17 @@ package com.marcelopaulo.algafood.domain.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class ItemPedido {
-
-	@EqualsAndHashCode.Include
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+@Table
+@Getter
+@Setter
+public class ItemPedido extends AbstractEntity<Long> {
 
 	private BigDecimal precoUnitario;
 	private BigDecimal precoTotal;

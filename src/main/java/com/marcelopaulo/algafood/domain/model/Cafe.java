@@ -1,9 +1,7 @@
 package com.marcelopaulo.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,35 +9,20 @@ import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-@Entity @Data
-public class Cafe {
+@Entity
+@Table
+@Getter
+@Setter
 
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+ // https://github.com/gilsonsilvati/algaworks-ecommerce/blob/master/src/main/java/com/algaworks/ecommerce/model/Produto.java
+public class Cafe extends AbstractEntity<Long> {
 
     @Column(name = "tipo")
     private String tipo;
 
-    @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "timestamp")
-    private OffsetDateTime dataCadastro;
-
-    @UpdateTimestamp
-    @Column(nullable = false, columnDefinition = "timestamp")
-    private OffsetDateTime dataAtualizacao;
-
     @JsonIgnore
     @ManyToMany(mappedBy = "cafe")
     private List<Colaborador> colaborador;
-
-
-//    @ManyToOne
-//    @JoinColumn(nullable = false)
-//    private Colaborador colaborador;
-//
-
 
 
 }

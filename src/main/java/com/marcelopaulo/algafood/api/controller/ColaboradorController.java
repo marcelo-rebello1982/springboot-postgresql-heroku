@@ -1,9 +1,7 @@
 package com.marcelopaulo.algafood.api.controller;
 
 
-import com.marcelopaulo.algafood.domain.exception.ColaboradorNaoEncontradoException;
-import com.marcelopaulo.algafood.domain.exception.EstadoNaoEncontradoException;
-import com.marcelopaulo.algafood.domain.exception.NegocioException;
+import com.marcelopaulo.algafood.domain.exception.*;
 import com.marcelopaulo.algafood.domain.model.Colaborador;
 import com.marcelopaulo.algafood.domain.model.Cozinha;
 import com.marcelopaulo.algafood.domain.repository.ColaboradorRepository;
@@ -32,19 +30,11 @@ public class ColaboradorController {
         return colaboradorService.findAll();
     }
 
-    @GetMapping("findById/{colaboradorId}")
-    public Colaborador findByID(@PathVariable Long colaboradorId) {
-        return colaboradorService.findByID(colaboradorId);
-    }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Colaborador save(@RequestBody @Valid Colaborador colaborador) {
-        try {
-            return colaboradorService.save(colaborador);
-        } catch (ColaboradorNaoEncontradoException e) {
-            throw new NegocioException(e.getMessage(), e);
-        }
+        return colaboradorService.save(colaborador);
     }
 
     @DeleteMapping("/delete/{colaboradorId}")
@@ -60,4 +50,10 @@ public class ColaboradorController {
         BeanUtils.copyProperties(colaborador, colaboradorAtual, "id");
         return colaboradorService.save(colaboradorAtual);
     }
+
+    @GetMapping("findById/{colaboradorId}")
+    public Colaborador findByID(@PathVariable Long colaboradorId) {
+        return colaboradorService.findByID(colaboradorId);
+    }
+
 }

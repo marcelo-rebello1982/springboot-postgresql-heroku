@@ -2,11 +2,15 @@ package com.marcelopaulo.algafood.domain.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import org.checkerframework.common.aliasing.qual.Unique;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,29 +18,18 @@ import java.util.List;
 import java.util.Set;
 
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Colaborador {
-
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Getter
+@Setter
+@Table(uniqueConstraints = {@UniqueConstraint(name = "unq_cpf", columnNames = {"cpf"})})
+public class Colaborador extends AbstractEntity<Long> {
 
     @Column(nullable = false)
+    @NotBlank
     private String nome;
 
     @CPF
     private String cpf;
-
-    @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "timestamp")
-    private OffsetDateTime dataCadastro;
-
-    @UpdateTimestamp
-    @Column(nullable = false, columnDefinition = "timestamp")
-    private OffsetDateTime dataAtualizacao;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "colaborador_cafe", joinColumns = {@JoinColumn(name = "colaborador_id", referencedColumnName = "id")},

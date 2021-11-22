@@ -2,6 +2,7 @@ package com.marcelopaulo.algafood.domain.service;
 
 import com.marcelopaulo.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.marcelopaulo.algafood.domain.exception.ColaboradorNaoEncontradoException;
+import com.marcelopaulo.algafood.domain.exception.ConstraintViolationException;
 import com.marcelopaulo.algafood.domain.exception.EntidadeEmUsoException;
 import com.marcelopaulo.algafood.domain.model.Cidade;
 import com.marcelopaulo.algafood.domain.model.Colaborador;
@@ -36,16 +37,19 @@ public class ColaboradorService {
     }
 
     public Colaborador save(Colaborador colaborador) {
-        return colaboradorRepository.save(colaborador);
+        try {
+            return colaboradorRepository.save(colaborador);
+        } catch (DataIntegrityViolationException ex) {
+            throw new ConstraintViolationException(
+                    String.format("CPF JÁ CADASTRADO"), null, ex.getCause().toString());
+        }
     }
 
     public void delete(Long colaboradorId) {
         try {
             colaboradorRepository.deleteById(colaboradorId);
-
         } catch (EmptyResultDataAccessException e) {
             throw new ColaboradorNaoEncontradoException(colaboradorId);
-
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(
                     String.format(MSG_COLABORADOR_EM_USO, colaboradorId));

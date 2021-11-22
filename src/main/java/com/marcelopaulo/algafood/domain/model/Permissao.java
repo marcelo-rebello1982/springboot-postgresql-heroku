@@ -2,23 +2,21 @@ package com.marcelopaulo.algafood.domain.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Permissao {
+@Table
+@Getter
+@Setter
+public class Permissao extends AbstractEntity<Long> {
 
-	@EqualsAndHashCode.Include
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(nullable = false)
-	private String nome;
-	
-	@Column(nullable = false)
-	private String descricao;
-	
+    @Column(nullable = false)
+    private String nome;
+
+    @Column(nullable = false)
+    private String descricao;
+
 }

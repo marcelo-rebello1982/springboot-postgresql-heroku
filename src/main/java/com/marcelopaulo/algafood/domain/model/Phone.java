@@ -4,9 +4,7 @@ import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marcelopaulo.algafood.enumeration.TelephoneType;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.apachecommons.CommonsLog;
 
 import javax.persistence.*;
@@ -16,19 +14,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
-@CommonsLog
-@NoArgsConstructor
-@Entity
+
 //@NamedQueries({
 //        @NamedQuery(name = "phone.findAll", query = "SELECT p FROM PHONE p"),
 //        @NamedQuery(name = "phone.findNameByID", query = "SELECT p FROM PHONE p WHERE p.id = :colaborador_id")})
-public class Phone {
-
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+@Entity
+@Table
+@Getter
+@Setter
+public class Phone extends AbstractEntity<Long> {
 
     @Column(length = 3, nullable = false, unique = false)
     private Integer ddd;

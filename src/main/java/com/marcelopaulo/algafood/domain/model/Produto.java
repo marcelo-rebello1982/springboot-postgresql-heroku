@@ -2,34 +2,34 @@ package com.marcelopaulo.algafood.domain.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Produto {
+@Table
+@Getter
+@Setter
+// https://github.com/gilsonsilvati/algaworks-ecommerce/blob/master/src/main/java/com/algaworks/ecommerce/model/Produto.java
 
-	@EqualsAndHashCode.Include
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class Produto extends AbstractEntity<Long> {
 
-	@Column(nullable = false)
-	private String nome;
-	
-	@Column(nullable = false)
-	private String descricao;
-	
-	@Column(nullable = false)
-	private BigDecimal preco;
-	
-	@Column(nullable = false)
-	private Boolean ativo;
+    @Column(nullable = false)
+    private String nome;
 
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Restaurante restaurante;
+    @Column(nullable = false)
+    private String descricao;
+
+    @Column(nullable = false)
+    private BigDecimal preco;
+
+    @Column(nullable = false)
+    private Boolean ativo;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Restaurante restaurante;
 
 }

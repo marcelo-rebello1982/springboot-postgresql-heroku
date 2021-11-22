@@ -1,7 +1,6 @@
 package com.marcelopaulo.algafood.domain.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,16 +10,19 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
-@CommonsLog
-@NoArgsConstructor
+
 @MappedSuperclass
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class AbstractEntity<Long> implements Serializable {
 
     public static final String GENERATOR = "custom_sequence";
 
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = GENERATOR)
-    protected Long Id;
+    protected Long id;
 
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "timestamp")
@@ -33,4 +35,16 @@ public abstract class AbstractEntity<Long> implements Serializable {
     @Version
     @Column(name = "version")
     private int version;
+
+
+    //    @JsonIgnore
+//    @CreationTimestamp
+//    @Column(nullable = false, columnDefinition = "timestamp")
+//    private LocalDateTime dataCadastro;
+//
+//    @JsonIgnore
+//    @UpdateTimestamp
+//    @Column(nullable = false, columnDefinition = "timestamp")
+//    private LocalDateTime dataAtualizacao;
+
 }

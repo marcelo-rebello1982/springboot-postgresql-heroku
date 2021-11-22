@@ -3,6 +3,8 @@ package com.marcelopaulo.algafood.domain.model;
 import com.marcelopaulo.algafood.core.validation.Groups;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -11,25 +13,21 @@ import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Cidade {
+@Table
+@Getter
+@Setter
+public class Cidade extends AbstractEntity<Long> {
 
-	@EqualsAndHashCode.Include
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@NotBlank
-	@Column(nullable = false)
-	private String nome;
-	
-	@Valid
-	@ConvertGroup(from = Default.class, to = Groups.EstadoId.class)
-	@NotNull
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Estado estado;
+    @NotBlank
+    @Column(nullable = false)
+    private String nome;
+
+    @Valid
+    @ConvertGroup(from = Default.class, to = Groups.EstadoId.class)
+    @NotNull
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Estado estado;
 
 }

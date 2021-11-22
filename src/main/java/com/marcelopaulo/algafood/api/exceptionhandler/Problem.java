@@ -11,7 +11,7 @@ import java.util.List;
 @JsonInclude(Include.NON_NULL)
 @Getter
 @Builder
-public class ErrorDetails {
+public class Problem {
 
 	private Integer status;
 	private LocalDateTime timestamp;
