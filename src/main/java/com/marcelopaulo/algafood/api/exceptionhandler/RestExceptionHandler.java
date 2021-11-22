@@ -261,6 +261,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 
+
     private ErrorDetails.ErrorDetailsBuilder createErrorDetails(HttpStatus status,
                                                                 ErrorType errorType, String detail) {
 
