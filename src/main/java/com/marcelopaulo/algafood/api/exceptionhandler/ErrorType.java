@@ -3,7 +3,7 @@ package com.marcelopaulo.algafood.api.exceptionhandler;
 import lombok.Getter;
 
 @Getter
-public enum ProblemType {
+public enum ErrorType {
 
 	DADOS_INVALIDOS("/dados-invalidos", "Dados inválidos"),
 	ERRO_DE_SISTEMA("/erro-de-sistema", "Erro de sistema"),
@@ -16,7 +16,7 @@ public enum ProblemType {
 	private String title;
 	private String uri;
 	
-	ProblemType(String path, String title) {
+	ErrorType(String path, String title) {
 		this.uri = "https://algafood.com.br" + path;
 		this.title = title;
 	}

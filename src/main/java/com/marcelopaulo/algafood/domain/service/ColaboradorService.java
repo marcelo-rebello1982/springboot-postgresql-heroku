@@ -36,13 +36,6 @@ public class ColaboradorService {
     }
 
     public Colaborador save(Colaborador colaborador) {
-
-        //Long estadoId = cidade.getEstado().getId();
-
-//        Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
-
-        //      cidade.setEstado(estado);
-
         return colaboradorRepository.save(colaborador);
     }
 
